@@ -7,6 +7,7 @@ using LearnCode.Domain.Tutorials;
 //import your COntext using a directive.
 using LearnCode.Data.Database;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace LearnCode.Data.Repositories.Tutorial.Impl
 {
@@ -17,36 +18,42 @@ namespace LearnCode.Data.Repositories.Tutorial.Impl
         { 
             _context = context;
         } 
-        public IEnumerable<TutorialItem> GetAllTutorials()
+        public async Task<IEnumerable<TutorialItem>> GetAllTutorials()
         {
-            IEnumerable<TutorialItem> allTutorials = _context.Tutorials.Take(10);
+            IEnumerable<TutorialItem> allTutorials = await _context.Tutorials.ToListAsync();
             return allTutorials;
         }
-        public IEnumerable<TutorialItem> GetTutorials(string filter, string value)
+        public async Task<IEnumerable<TutorialItem>> GetTutorials(string filter, string value)
         {
             IEnumerable<TutorialItem> filterTutorials;
             if (filter == "Author's Name")
             {
-                filterTutorials = _context.Tutorials.Include(t => t.Author.Name == value);
+                filterTutorials = await _context.Tutorials.Include(t => t.Author.Name == value).ToListAsync();
             }
             else if (filter == "Author's Intro")
             {
-                filterTutorials = _context.Tutorials.Include(t => t.Author.Intro == value);
+                filterTutorials = await _context.Tutorials.Include(t => t.Author.Intro == value).ToListAsync();
             }
             else if (filter == "Tags")
             {
-                filterTutorials = _context.Tutorials.Include(t => t.Tags.Where(tag => tag.Title == value));
+                filterTutorials = await _context.Tutorials.Include(t => t.Tags.Where(tag => tag.Title == value)).ToListAsync();
             }
             else
             {
-             filterTutorials = _context.Tutorials.Include(t => (string)t.GetType().GetProperty(filter).GetValue(t, null) == (string)value);
+             filterTutorials = await _context.Tutorials.Include(t => (string)t.GetType().GetProperty(filter).GetValue(t, null) == (string)value).ToListAsync();
             }
             return filterTutorials;
         }
-        public TutorialItem GetTutorial(string title)
+        public TutorialItem GetTutorial(Guid tutorialId)
         {
-            TutorialItem specificTutorial = _context.Tutorials.FirstOrDefault(t => t.Title == title);
+            TutorialItem specificTutorial = _context.Tutorials.FirstOrDefault(t => t.Id == tutorialId);
             return specificTutorial;
+        }
+        public async Task AddCritism(TutorialItem updatedTutorial)
+        {
+            _context.Tutorials.Update(updatedTutorial);
+            _context.Criticisms.Update(updatedTutorial.Criticisms.Last());
+            await _context.SaveChangesAsync();
         }
     }
 }

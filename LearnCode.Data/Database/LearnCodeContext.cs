@@ -20,6 +20,7 @@ namespace LearnCode.Data.Database
         public DbSet<TutorialItem> Tutorials { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Educator> Educators { get; set; }
+        public DbSet<Criticism> Criticisms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

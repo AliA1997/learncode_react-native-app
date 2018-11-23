@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnCode.Data.Migrations
 {
     [DbContext(typeof(LearnCodeContext))]
-    [Migration("20181109152933_Initial-Migration")]
-    partial class InitialMigration
+    [Migration("20181122200527_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,8 @@ namespace LearnCode.Data.Migrations
 
                     b.Property<string>("EducatorId1");
 
+                    b.Property<double>("Rating");
+
                     b.Property<Guid?>("TutorialId");
 
                     b.Property<Guid?>("TutorialItemId");
@@ -118,6 +120,8 @@ namespace LearnCode.Data.Migrations
                     b.Property<string>("EducatorId");
 
                     b.Property<string>("Image");
+
+                    b.Property<string>("SkillLevel");
 
                     b.Property<string>("Subject");
 
@@ -210,6 +214,8 @@ namespace LearnCode.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
+                    b.Property<string>("DisplayName");
+
                     b.Property<Guid?>("EducationId");
 
                     b.Property<string>("Email")
@@ -249,8 +255,6 @@ namespace LearnCode.Data.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 

@@ -7,6 +7,7 @@ using LearnCode.Services.Factory;
 using LearnCode.Services.ViewModels;
 using LearnCode.Services.Services.Tutorial;
 using LearnCode.Services.ViewModels.Tutorials;
+using System.Threading.Tasks;
 
 namespace LearnCode.Services.Services.Tutorial.Impl
 {
@@ -18,20 +19,28 @@ namespace LearnCode.Services.Services.Tutorial.Impl
         {
             _repository = repository;
         } 
-        public IEnumerable<TutorialViewModel> GetAllTutorials()
+        public async Task<IEnumerable<TutorialViewModel>> GetAllTutorials()
         {
-            IEnumerable<TutorialViewModel> tutorials = _repository.GetAllTutorials().Select(t => ModelFactory.CreateViewModel(t));
-            return tutorials;
+            var tutorials = await _repository.GetAllTutorials();
+            return tutorials.Select(t => ModelFactory.CreateViewModel(t));
         }
-        public IEnumerable<TutorialViewModel> GetTutorials(string filter, string value)
+        public async Task<IEnumerable<TutorialViewModel>> GetTutorials(string filter, string value)
         {
-            IEnumerable<TutorialViewModel> tutorials = _repository.GetTutorials(filter, value).Select(t => ModelFactory.CreateViewModel(t));
-            return tutorials;
+            var tutorials = await _repository.GetTutorials(filter, value);
+            return tutorials.Select(t => ModelFactory.CreateViewModel(t));
         }
-        public TutorialViewModel GetTutorial(string title)
+        public TutorialViewModel GetTutorial(Guid tutorialId)
         {
-            TutorialViewModel tutorial = ModelFactory.CreateViewModel(_repository.GetTutorial(title));
+            TutorialViewModel tutorial = ModelFactory.CreateViewModel(_repository.GetTutorial(tutorialId));
             return tutorial;
+        }
+        public async Task AddCriticism(CriticismViewModel newCriticism)
+        {
+            TutorialViewModel tutorialToRetrieve = GetTutorial(newCriticism.TutorialId);
+            var tutorialToUpdate = ModelFactory.CreateDomainModel(tutorialToRetrieve);
+            var critismToAdd = ModelFactory.CreateDomainModel(newCriticism);
+            tutorialToUpdate.AddCriticism(critismToAdd);
+            await _repository.AddCritism(tutorialToUpdate);
         }
     }
 }

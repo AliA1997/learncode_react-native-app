@@ -7,13 +7,13 @@ namespace LearnCode.Domain.Users
 {
     public class Student : LearnCodeUser
     {
-        private Student() { }
-        public Student(string name, string username, string intro, string email, string avatar,
+        public Student() { }
+        public Student(string name, string displayName, string intro, string email, string avatar,
                                string occupation, string institution, string education,
                                int? yearOfGraduation, IEnumerable<PLItem> PLItems, SubscriptionStatus subscriptionStatus)
         {
             Name = name;
-            Username = username;
+            DisplayName = displayName;
             Intro = intro;
             Email = email;
             Avatar = avatar;

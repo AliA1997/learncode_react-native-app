@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LearnCode.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,7 @@ namespace LearnCode.Data.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     PushNotificationToken = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true),
                     Intro = table.Column<string>(nullable: true),
                     Avatar = table.Column<string>(nullable: true),
                     Occupation = table.Column<string>(nullable: true),
@@ -358,6 +358,7 @@ namespace LearnCode.Data.Migrations
                     Title = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
+                    SkillLevel = table.Column<string>(nullable: true),
                     AuthorId = table.Column<Guid>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: false),
@@ -416,6 +417,7 @@ namespace LearnCode.Data.Migrations
                     EducatorId = table.Column<Guid>(nullable: true),
                     AuthorId = table.Column<Guid>(nullable: true),
                     Body = table.Column<string>(nullable: true),
+                    Rating = table.Column<double>(nullable: false),
                     EducatorId1 = table.Column<string>(nullable: true),
                     TutorialItemId = table.Column<Guid>(nullable: true)
                 },

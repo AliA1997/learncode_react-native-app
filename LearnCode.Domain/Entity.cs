@@ -7,7 +7,7 @@ namespace LearnCode.Domain
     public abstract class Entity
     {
         public Guid Id { get; set; }
-        /*
+        
         public override bool Equals(object obj)
         {
             //We will case the object passed as an argument as a Entity Type.
@@ -42,6 +42,6 @@ namespace LearnCode.Domain
             //Get the hashed id from hashing 907 times, and return the new hashed id.
             return (GetType().GetHashCode() * 907) + Id.GetHashCode();
         }
-        */
+        
     }
 }

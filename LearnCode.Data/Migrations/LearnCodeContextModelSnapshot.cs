@@ -69,6 +69,8 @@ namespace LearnCode.Data.Migrations
 
                     b.Property<string>("EducatorId1");
 
+                    b.Property<double>("Rating");
+
                     b.Property<Guid?>("TutorialId");
 
                     b.Property<Guid?>("TutorialItemId");
@@ -116,6 +118,8 @@ namespace LearnCode.Data.Migrations
                     b.Property<string>("EducatorId");
 
                     b.Property<string>("Image");
+
+                    b.Property<string>("SkillLevel");
 
                     b.Property<string>("Subject");
 
@@ -208,6 +212,8 @@ namespace LearnCode.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
+                    b.Property<string>("DisplayName");
+
                     b.Property<Guid?>("EducationId");
 
                     b.Property<string>("Email")
@@ -247,8 +253,6 @@ namespace LearnCode.Data.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 

@@ -9,13 +9,13 @@ namespace LearnCode.Domain.Users
 {
     public class Educator : LearnCodeUser
     {
-        private Educator() { }
-        public Educator(string name, string username, string intro, string email, string avatar, IEnumerable<PLItem> languageOfExpertise,
+        public Educator() { }
+        public Educator(string name, string displayName, string intro, string email, string avatar, IEnumerable<PLItem> languageOfExpertise,
                 string occupation, string institution, string education,
                int? yearOfGraduation, IEnumerable<PLItem> PLItems)
         {
             Name = name;
-            Username = username;
+            DisplayName = displayName;
             Intro = intro;
             Email = email;
             Avatar = avatar;

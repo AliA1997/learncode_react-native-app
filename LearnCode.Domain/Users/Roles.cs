@@ -8,6 +8,7 @@ namespace LearnCode.Domain.Users
     public static class Roles
     {
         public const string SystemAdmin = "System Admin";
+        public const string Institution = "Institution";
         public const string Student = "Student";
         public const string Educator = "Educator";
 
@@ -15,6 +16,7 @@ namespace LearnCode.Domain.Users
         public static string[] All = new string[]
         {
             SystemAdmin,
+            Institution,
             Student,
             Educator
         };

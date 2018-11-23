@@ -21,6 +21,14 @@ namespace LearnCode.Services.Factory
             return new PLItem(name: newProgrammingLanguage.Name, image: newProgrammingLanguage.Image);
         }
 
+        internal static AuthorItem CreateDomainModel(AuthorViewModel newAuthor)
+        {
+            return new AuthorItem(
+                name: newAuthor.Name,
+                intro: newAuthor.Intro
+            );
+        }
+
         internal static FavoriteTutorial CreateDomainModel(FavoriteTutorialViewModel newFavoriteTutorial)
         {
             return new FavoriteTutorial(
@@ -70,6 +78,17 @@ namespace LearnCode.Services.Factory
                 addressCity: newStripePayment.AddressCity
             );
         }
+
+        internal static Criticism CreateDomainModel(CriticismViewModel newCriticism)
+        {
+            return new Criticism(
+                critic: CreateDomainModel(newCriticism.Critic),
+                body: newCriticism.Body,
+                rating: newCriticism.Rating,
+                tutorialId: newCriticism.TutorialId,
+                educatorId: newCriticism.EducatorId
+            );
+        }
         //////////////////////////////////////////////////////////////////////////////
         internal static TutorialItem CreateDomainModel(TutorialViewModel newTutorial)
         {
@@ -77,8 +96,9 @@ namespace LearnCode.Services.Factory
                 title: newTutorial.Title,
                 image: newTutorial.Image,
                 subject: newTutorial.Subject,
+                skillLevel: newTutorial.SkillLevel,
                 //Will return a array of string or a IEnumerable instance of strings.
-                tags: newTutorial.Tags.Select(tag => tag.Title),
+                tags: newTutorial.Tags.Select(tag => new TagItem(title:  tag.Title)),
                 authorName: newTutorial.Author.Name,
                 authorIntro: newTutorial.Author.Intro
                 );
@@ -87,7 +107,7 @@ namespace LearnCode.Services.Factory
         {
             return new Student(
                    name: newStudent.Name,
-                   username: newStudent.Username,
+                   displayName: newStudent.DisplayName,
                    intro: newStudent.Intro,
                    email: newStudent.Email,
                    avatar: newStudent.Avatar,
@@ -103,7 +123,7 @@ namespace LearnCode.Services.Factory
         {
             return new Educator(
                     name: newEducator.Name,
-                    username: newEducator.Username,
+                    displayName: newEducator.DisplayName,
                     intro: newEducator.Intro,
                     email: newEducator.Email,
                     avatar: newEducator.Avatar,
@@ -118,6 +138,26 @@ namespace LearnCode.Services.Factory
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////
         ///Sub Entity view model creation models.
+        ///
+        internal static UserViewModel CreateViewModel(LearnCodeUser user, string role="")
+        {
+            return new UserViewModel()
+            {
+                Id = Guid.Parse(user.Id),
+                Name = user.Name,
+                DisplayName = user.DisplayName,
+                Email = user.Email,
+                Education = CreateViewModel(user.Education),
+                FavoriteProgammingLanguages = user.FavoriteProgammingLanguages.Select(pl => CreateViewModel(pl)),
+                Intro = user.Intro,
+                Avatar = user.Avatar,
+                Occupation = user.Occupation,
+                ProgrammingExperience = user.ProgrammingExperience,
+                Role = role,
+                PushNotificationToken = user.PushNotificationToken
+            };
+        }
+
         internal static PLViewModel CreateViewModel(PLItem newProgrammingLanguage)
         {
             return new PLViewModel()
@@ -200,6 +240,7 @@ namespace LearnCode.Services.Factory
                 Title = newTutorial.Title,
                 Image = newTutorial.Image,
                 Subject = newTutorial.Subject,
+                SkillLevel = newTutorial.SkillLevel,
                 Author = new AuthorViewModel()
                 {
                     Name = newTutorial.Author.Name,
@@ -214,7 +255,7 @@ namespace LearnCode.Services.Factory
             {
                 Id = new Guid(newStudent.Id),
                 Name = newStudent.Name,
-                Username = newStudent.Username,
+                DisplayName = newStudent.DisplayName,
                 Email = newStudent.Email,
                 Intro = newStudent.Intro,
                 Avatar = newStudent.Avatar,
@@ -234,7 +275,7 @@ namespace LearnCode.Services.Factory
             {
                 Id = new Guid(newEducator.Id),
                 Name = newEducator.Name,
-                Username = newEducator.Username,
+                DisplayName = newEducator.DisplayName,
                 Email = newEducator.Email,
                 Intro = newEducator.Intro,
                 Avatar = newEducator.Avatar,

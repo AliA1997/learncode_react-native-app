@@ -8,16 +8,20 @@ namespace LearnCode.Domain.Tutorials
     public class Criticism : Entity
     {
         private Criticism() { }
-        public Criticism(AuthorItem author, string body)
+        public Criticism(AuthorItem critic, string body, double rating, Guid tutorialId, Guid educatorId)
         {
-            Author = author;
+            Critic = critic;
             Body = body;
+            Rating = rating;
+            TutorialId = tutorialId;
+            EducatorId = educatorId;
         }
         [ForeignKey("Tutorials")]
-        public Guid? TutorialId { get; set; }
+        public Guid TutorialId { get; set; }
         [ForeignKey("Educators")] 
-        public Guid? EducatorId { get; set; }
-        public AuthorItem Author { get; set; }
+        public Guid EducatorId { get; set; }
+        public AuthorItem Critic { get; set; }
         public string Body { get; set; }
+        public double Rating { get; set; }
     }
 }

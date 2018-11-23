@@ -8,8 +8,9 @@ namespace LearnCode.Domain.Users
     public static class Policies
     {
         //Define your variables holding all the roles of the users.
-        private const string SystemAdmin = Roles.SystemAdmin;
-        private const string Student = Roles.Student;
-        private const string Educator = Roles.Educator;
+        public const string SystemAdmin = Roles.SystemAdmin;
+        public const string Institution = Roles.Institution;
+        public const string Student = Roles.Student;
+        public const string Educator = Roles.Educator;
     }
 }
