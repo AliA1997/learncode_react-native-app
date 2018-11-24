@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { ScrollView, View, Dimensions, Text } from 'react-native';
+import * as Config from '../../../utilities/config';
 import baseStyles from '../../../styles/base';
 import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import Donut from '../../../inputs/Donut';
@@ -31,9 +32,26 @@ const data2 = [
     }
 ]
 
+const apiUrl = Config.server + '/tutorials';
+
 export default class StudentDashboard extends PureComponent {
+    state = {
+        list: []
+    }
     static navigationOptions = {
         drawerLabel: 'Dashboard'
+    }
+
+    componentDidMount() {
+        fetch(apiUrl, {
+                mode: 'include',
+                method: 'GET',
+                mode: 'cors',
+            }
+        )
+        .then(res => res.json()) 
+        .then(resJSON => console.log("RESJSON----------------", resJSON))
+        .catch(error => console.log("GET TUTorials Error!!!", error));
     }
     render() {
         return (
@@ -51,6 +69,9 @@ export default class StudentDashboard extends PureComponent {
                             <Donut data={data2} valueBasedOn={'progress'} staticColors={true}/>
                         </View>
                         <Text style={styles.containerLabel}>{data2[0].title}</Text>
+                    </View>
+                    <View>
+
                     </View>
                 </ScrollView>
             </ComponentWithNavbar>
