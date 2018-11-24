@@ -67,6 +67,7 @@ namespace LearnCode.Web
             }
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseCors();
         }
     }
 }
