@@ -1,3 +1,6 @@
 [submodule "LearnCode.Web/wwwroot/learn_code"]
 	path = LearnCode.Web/wwwroot/learn_code
 	url = https://github.com/AliA1997/learncode_react-native-app.git
+[submodule "LearnCode.Web/wwwroot/LearnCode.Web/wwwroot/learncode_react-native-app"]
+	path = LearnCode.Web/wwwroot/LearnCode.Web/wwwroot/learncode_react-native-app
+	url = https://github.com/AliA1997/learncode_react-native-app.git
