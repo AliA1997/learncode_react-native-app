@@ -1,2 +1,1 @@
-export const server = 'http://localhost:5001/api';
-
+export const server = 'https://learncode-web.conveyor.cloud/api'

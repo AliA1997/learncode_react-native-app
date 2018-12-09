@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { ScrollView, View, Dimensions, Text } from 'react-native';
 import * as Config from '../../../utilities/config';
 import baseStyles from '../../../styles/base';
+import * as AjaxCreators from '../../../constants/ajaxCallCreators';
 import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import Donut from '../../../inputs/Donut';
 import Header from '../../../inputs/Header';
@@ -43,15 +44,9 @@ export default class StudentDashboard extends PureComponent {
     }
 
     componentDidMount() {
-        fetch(apiUrl, {
-                mode: 'include',
-                method: 'GET',
-                mode: 'cors',
-            }
-        )
-        .then(res => res.json()) 
-        .then(resJSON => console.log("RESJSON----------------", resJSON))
-        .catch(error => console.log("GET TUTorials Error!!!", error));
+        AjaxCreators.get(apiUrl, 'tutorials', 'gettutorial')
+        .then(res => console.log('res-----------', res))
+        .catch(error => console.log("Get Tutorials Error----------", error));
     }
     render() {
         return (
