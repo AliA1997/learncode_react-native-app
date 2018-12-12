@@ -3,10 +3,12 @@ import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import * as configStyles from './styles/config';
 import stackNavigatorStyles from './styles/navigatorStyles/stackNavigatorStyles';
 import PickATypeRegister from './components/RegisterScreens/PickATypeRegister';
-import EducatorRegister from './components/RegisterScreens/EducatorRegister';
+//import your Educator Register Screen via a StackNavigator
+import EducatorRegisterNavigator from './navigators/EducatorRegister';
 import StudentRegister from './components/RegisterScreens/StudentRegister';
 import StudentDashboard from './components/DashboardScreens/Student';
 import LoginScreen from './components/LoginScreen';
+import EducatorRegister from './components/RegisterScreens/StudentRegister';
 
 const RegisterNavigator = createStackNavigator(
     {
@@ -18,7 +20,7 @@ const RegisterNavigator = createStackNavigator(
             })
         },
         Register_Educator: {
-            screen: EducatorRegister,
+            screen: EducatorRegisterNavigator,
             navigationOptions: () => ({
                 title: "Register as Educator",
                 headerStyle: stackNavigatorStyles.headerStyle,

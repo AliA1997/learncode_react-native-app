@@ -16,4 +16,4 @@ export const navBackgroundColor = '#0E8B66';
 export const mainColor = '#0E8B66';
 export const inputColor = '#0E8B66';
 export const inputBorderRadius = 30;
-export const inputFontSize = 17;
+export const inputFontSize = 14;

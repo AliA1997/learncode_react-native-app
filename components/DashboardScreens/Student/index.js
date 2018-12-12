@@ -6,6 +6,7 @@ import * as AjaxCreators from '../../../constants/ajaxCallCreators';
 import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import Donut from '../../../inputs/Donut';
 import Header from '../../../inputs/Header';
+import Card from '../../../inputs/Card';
 import styles from '../styles';
 
 
@@ -45,10 +46,11 @@ export default class StudentDashboard extends PureComponent {
 
     componentDidMount() {
         AjaxCreators.get(apiUrl, 'tutorials', 'gettutorial')
-        .then(res => console.log('res-----------', res))
-        .catch(error => console.log("Get Tutorials Error----------", error));
+        .then(res => this.setState({list: res}))
+        .catch(error => alert(JSON.stringify(error)));
     }
     render() {
+        console.log("this.state.list----------", this.state.list);
         return (
             <ComponentWithNavbar>
                 <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
@@ -65,9 +67,11 @@ export default class StudentDashboard extends PureComponent {
                         </View>
                         <Text style={styles.containerLabel}>{data2[0].title}</Text>
                     </View>
-                    <View>
-
-                    </View>
+                    <ScrollView>
+                        {
+                            this.state.list.map(item => <Card key={item.id} type="tutorial" objToMap={item} icon={<Text />}/>)
+                        }
+                    </ScrollView>
                 </ScrollView>
             </ComponentWithNavbar>
         );

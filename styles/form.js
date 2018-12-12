@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         color: configStyles.inputColor,
         fontSize: configStyles.inputFontSize,
         paddingLeft: 15,
+        flex: 1,
     },
     header: {
         fontSize: configStyles.headerTextSize,

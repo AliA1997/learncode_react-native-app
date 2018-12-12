@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import * as configStyles from './config';
 var {height, width} = Dimensions.get('window');
 
@@ -44,6 +44,15 @@ const styles = StyleSheet.create({
         minHeight: 50,
         width: width * 0.8,
     },
+    autocomplete: Platform.select({
+        android: {},
+        ios: {
+            width: width * 0.8
+        }
+    }),
+    autocompleteList: {
+        width: width * 0.6
+    }
 });
 
 export default styles;
