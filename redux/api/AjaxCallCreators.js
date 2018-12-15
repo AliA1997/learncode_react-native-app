@@ -7,8 +7,8 @@ export const get = (url) => (
         })
     )
     .then(res => res.json())
-    .then(resJSON => console.log("RESJSON---------------------", resJSON))
-    .catch(error => console.log("Get Error--------------", error))
+    .then(resJSON => resJSON)
+    .catch(error => error)
 );
 
 

@@ -4,7 +4,7 @@ import * as ActionTypes from '../../actionTypes';
 ///Actions for changing inputs////
 //////////////////////////////////
 export const changeLoginForm  = form => ({
-    type: ActionTypes.CHANGE_EDUCATOR_REGISTRATION_FORM,
+    type: ActionTypes.CHANGE_LOGIN_FORM,
     form
 });
 

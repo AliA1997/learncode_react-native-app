@@ -1,10 +1,28 @@
 module.exports = {
+    ajax: {
+        callsInProgress: 0
+    },
     auth: {
         loginForm: {},
         studentRegistrationForm: {},
         educatorRegistrationForm: {}
     },
-    ajax: {
-        callsInProgress: 0
+    criticism: {
+        createTutorialCriticismForm: {},
+        createEducatorCriticismForm: {},
+        updateTutorialCriticismForm: {},
+        updateEducatorCriticismForm: {}
+    },
+    programmingLanguages: {
+        list: [] 
+    },
+    tutorial: {
+        createTutorialForm: {},
+        updateTutorialForm: {},
+        generalTutorials: [],
+    },
+    user: {
+        generalEducators: [],
+        generalStudents: []
     }
 }

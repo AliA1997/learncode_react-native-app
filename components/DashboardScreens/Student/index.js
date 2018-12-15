@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as TutorialActions from '../../../redux/reducers/Tutorial/actions';
 import { ScrollView, View, Dimensions, Text } from 'react-native';
 import * as Config from '../../../utilities/config';
 import baseStyles from '../../../styles/base';
@@ -35,7 +38,7 @@ const data2 = [
 
 const apiUrl = Config.server + '/tutorials';
 
-export default class StudentDashboard extends PureComponent {
+class StudentDashboard extends PureComponent {
     state = {
         list: []
     }
@@ -44,11 +47,11 @@ export default class StudentDashboard extends PureComponent {
     }
 
     componentDidMount() {
-        AjaxCreators.get(apiUrl, 'tutorials', 'gettutorial')
-        .then(res => console.log('res-----------', res))
-        .catch(error => console.log("Get Tutorials Error----------", error));
+        this.props.actions.getAllTutorials();
     }
     render() {
+        const { tutorials } = this.props;
+        console.log('tutorials----------', tutorials);
         return (
             <ComponentWithNavbar>
                 <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
@@ -73,3 +76,16 @@ export default class StudentDashboard extends PureComponent {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    tutorials: state.tutorial.generalTutorials
+});
+
+const mapDispatchToProps = dispatch => {
+    const combinedActions = Object.assign({}, TutorialActions);
+    return {
+        actions: bindActionCreators(combinedActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard);
