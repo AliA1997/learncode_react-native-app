@@ -9,11 +9,11 @@ const reducer = (state = initialState.auth, action) => {
             });
         case ActionTypes.CHANGE_STUDENT_REGISTRATION_FORM:
             return Object.assign({}, state, {
-                studentRegistrationForm: form
+                studentRegistrationForm: action.form
             });
         case ActionTypes.CHANGE_EDUCATOR_REGISTRATION_FORM:
             return Object.assign({}, state, {
-                educatorRegistrationForm: form
+                educatorRegistrationForm: action.form
             });
         default: 
             return state;

@@ -7,7 +7,6 @@ import Input from '../../../inputs/Input';
 import Button from '../../../inputs/Button';
 import SelectionPane from '../../../inputs/SelectionPane';
 import AutoComplete from '../../../inputs/AutoComplete';
-import Input from '../../../inputs/Input';
 
 const programmingLanguagesUrl = Config.server + '/programming_languages'
 export default class EducatorRegisterTwo extends Component {
