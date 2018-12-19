@@ -7,7 +7,8 @@ export const CHANGE_LOGIN_FORM = 'CHANGE_LOGIN_FORM';
 export const CHANGE_STUDENT_REGISTRATION_FORM = 'CHANGE_STUDENT_REGISTRATION_FORM';
 export const CHANGE_EDUCATOR_REGISTRATION_FORM = 'CHANGE_EDUCATOR_REGISTRATION_FORM';
     //Asynchronous Persist Login ACtion Types.
-    
+export const PERSIST_LOGIN = 'PERSIST_LOGIN';
+export const PERSIST_LOGOUT = 'PERSIST_LOGOUT';
 
 
 //Tutorial Action Types 
