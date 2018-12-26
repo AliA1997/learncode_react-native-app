@@ -1,36 +1,57 @@
 import React, { PureComponent } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { KeyboardAvoidingView, Text } from 'react-native';
+import Icon from  'react-native-vector-icons/FontAwesome5';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as ProgrammingLanguagesActions from '../../../redux/reducers/ProgrammingLanguages/actions';
 import Header from '../../../inputs/Header';
 import Input from '../../../inputs/Input';
 import Button from '../../../inputs/Button';
-import styles from '../styles';
+import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import formStyles from '../../../styles/form';
-import SelectionPane from '../../../inputs/SelectionPane';
 
-export default class EducatorRegister extends PureComponent {
+class StudentRegister extends PureComponent {
     static navigationOptions = {
         drawerLabel: 'Educator'
     }
+
+    handleChange = (text, type) => {
+        const form = Object.assign({}, this.props.form);
+        form[type] = text;
+        this.props.actions.changeStudentRegistration(form);
+        console.log('form---------', form);
+        return;
+    }
+
     render() {
+        const { form } = this.props;
         return (
-            <View  style={styles.scrollContainer}>
-                <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-                    <Header title="Education?" overrideStyle={styles.labelOverride}/>
-                    <Text style={formStyles.label}>So as a student what education  you have?</Text>
-
-                    <Input onChange={() => console.log("Education Change Input")} type="Education" 
-                    overrideInputStyle={styles.input} placeholder="education"/>
-                    
-                    <Text style={formStyles.label}>So as a student what programming languages you would prefer? </Text>
-                    
-                    <Input onChange={() => console.log("Favorite PLs")} type="Favorite PLs" 
-                    overrideInputStyle={styles.input} placeholder="FavoritePLs"/>
-
-                    <SelectionPane title="Favorite Programming Languages">
-                        <Text style={styles.label}>No Languages picked.</Text>
-                    </SelectionPane>
-                </ScrollView>
-            </View>
+            <ComponentWithNavbar type='register'  title='(1/4) Basic Info'>
+                <KeyboardAvoidingView>
+                    <Header title="Info as a Student" />
+                    <Text style={formStyles.label}>Display Name</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'displayName') } placeholder="Display Name" value={form["displayName"]}/>
+                    <Text style={formStyles.label}>Email</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'email')} placeholder="Email" value={form["email"]}/>
+                    <Text style={formStyles.label}>Intro</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'intro')} placeholder="Your Introduction" value={form["intro"]}/>
+                    <Button title='Next - Education' type='Next' onPress={() => this.props.navigation.navigate('Student_Register_Two')} />
+                </KeyboardAvoidingView>
+            </ComponentWithNavbar>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    programmingLanguages: state.programmingLanguages.list,
+    form: state.auth.studentRegistrationForm
+});
+
+const mapDispatchToProps = dispatch => {
+    const combinedActions = Object.assign({}, ProgrammingLanguagesActions);
+    return {
+        actions: bindActionCreators(combinedActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentRegister);

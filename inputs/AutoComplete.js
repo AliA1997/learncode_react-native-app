@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
 import Input from './Input';
 import AutoComplete from 'react-native-autocomplete-input';
 import PropTypes from 'prop-types';
 import baseStyles from '../styles/base';
 import formStyles from '../styles/form';
 
-const AutoCompleteInput = ({data, valueObj, value, onChangeText, renderItem, placeholder }) => (
+const AutoCompleteInput = ({data, value, onChangeText, renderItem, placeholder }) => (
     <AutoComplete 
         data={data}
-        defaultValue={value}
-        onChangeText={text => onChangeText(text)}
+        value={value}
+        defaultValue=''
         renderItem={item => renderItem(item)}
+        onChangeText={onChangeText}
+        onShowResult={() => data.map(item => item.slice(0, 4).includes(value)).length}
         placeholder={placeholder}
-        containerStyle={formStyles.inputContainer}
-        inputContainerStyle={formStyles.input}
-        listContainerStyle={{width: 350}}
+        inputContainerStyle={{borderWidth: 0, borderColor: 'transparent'}}
+        listContainerStyle={formStyles.autocompleteList}
+        listStyle={formStyles.autocompleteListItem}
+        renderTextInput={() => <Input onChange={onChangeText} placeholder={placeholder} value={value}/>}
         hideResults={!(data && data.length > 0)}
     />
 );
 
 AutoComplete.propTypes = {
     data: PropTypes.array.isRequired,
-    valueObj: PropTypes.object.isRequired,
     value: PropTypes.string.isRequired,
     onChangeText: PropTypes.func.isRequired,
     renderItem: PropTypes.func.isRequired,

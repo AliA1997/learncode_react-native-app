@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
         minHeight: 50,
         width: width * 0.8,
     },
+    selectionPaneHeader: {
+        fontSize: 20,
+        lineHeight: height * 0.06
+    },
     autocomplete: Platform.select({
         android: {},
         ios: {

@@ -36,9 +36,11 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: width * 0.9,
-        height: height * 0.10,
+        height: height * 0.08,
+        marginTop: 15,
+        marginBottom: 15,
         justifyContent: 'center',
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     input: {
         width: width * 0.8,
@@ -55,6 +57,21 @@ const styles = StyleSheet.create({
         fontSize: configStyles.headerTextSize,
         paddingTop: 10,
         flexGrow: 0.5
+    },
+    autocomplete: {
+        width: width * 0.8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    autocompleteList: {
+        marginTop: -10,
+        width: width * 0.9,
+        height: height * 0.25,
+        backgroundColor: 'transparent',
+        paddingLeft: 15
+    },
+    autocompleteListItem: {
+        backgroundColor: 'transparent',
     }
 });
 

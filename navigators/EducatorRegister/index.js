@@ -10,37 +10,40 @@ const educatorRegisterNavigator = createStackNavigator(
     Register_One: {
         screen: EducatorRegister,
         navigationOptions: () => ({
-            title: "Register as Educator",
-            headerStyle: stackNavigatorStyles.headerStyle,
-            headerTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerTintColor: 'white',
+            // title: "(1/3) Register as Educator",
+            // headerStyle: stackNavigatorStyles.headerStyle,
+            // headerTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerTintColor: '#0E8B66',
+            header: null
         })
     },
-    Register_Two: {
+    Educator_Register_Two: {
         screen: EducatorRegisterTwo,
         navigationOptions: () => ({
-            title: "Fav Programming Languages",
-            headerStyle: stackNavigatorStyles.headerStyle,
-            headerTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerTintColor: 'white',
+            // title: "(2/3) Fav Programming Languages",
+            // headerStyle: stackNavigatorStyles.headerStyle,
+            // headerTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerTintColor: '#0E8B66',
+            header: null
         })
     },
-    Register_Three: {
+    Educator_Register_Three: {
         screen: EducatorRegisterThree,
         navigationOptions: () => ({
-            title: "Not defined",
-            headerStyle: stackNavigatorStyles.headerStyle,
-            headerTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
-            headerTintColor: 'white',
+            // title: "(3/3) Not defined",
+            // headerStyle: stackNavigatorStyles.headerStyle,
+            // headerTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
+            // headerTintColor: 'white',
+            header: null
         })
     }
 },
 {
     initialRouteName: 'Register_One',
-    headerBackTitleVisible: true,
+    headerBackTitleVisible: false,
     headerMode: 'float'
 });
 

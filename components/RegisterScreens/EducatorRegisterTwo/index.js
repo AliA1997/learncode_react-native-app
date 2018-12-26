@@ -1,61 +1,76 @@
-import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
-import * as Config from '../../../utilities/config';
-import * as AjaxCreators from '../../../constants/ajaxCallCreators';
+import React, { PureComponent } from 'react';
+import { Text } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import * as AuthActions from '../../../redux/reducers/Auth/actions';
+import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import Header from '../../../inputs/Header';
 import Input from '../../../inputs/Input';
 import Button from '../../../inputs/Button';
-import SelectionPane from '../../../inputs/SelectionPane';
-import AutoComplete from '../../../inputs/AutoComplete';
+import navStyles from '../../../styles/navigatorStyles/stackNavigatorStyles';
+import formStyles from '../../../styles/form';
+import styles from '../styles';
 
-const programmingLanguagesUrl = Config.server + '/programming_languages'
-export default class EducatorRegisterTwo extends Component {
-    state = {
-        plList: [],
-        value: '',
-        selectedItem: null
+
+class EducatorRegisterTwo extends PureComponent {
+    
+    handleChange = (text, type) => {
+        let form = Object.assign({}, this.props.form);
+        form[type] = text;
+        this.props.actions.changeEducatorRegistration(form);
+        return;
     }
 
-    componentDidMount() {
-        AjaxCreators.get(programmingLanguagesUrl)
-        .then(res => this.setState({plList: res}))
-        .catch(error => console.log("Get Programming Languages Error-----------", error));
-    }
-    handlePLChange = (value) => {
-        const { plList } = this.state;
-        const filteredItems = plList.filter(pl => value.length > 1 ? pl.name.includes(value) : value === pl.name.slice(0, 1).toLowerCase())
-        this.setState({filteredList: filteredItems})
-    }
 
-    _renderItem = (dataItem) => (
-        <TouchableOpacity style={{width: 100}} onPress={() => this.setState({value: dataItem})}>
-            <Text>{dataItem.name}</Text>
-        </TouchableOpacity>
-    )
     render() {
+        const { form } = this.props;
         return (
-            <ScrollView>
-                    <Header title="Pick your Programming Languages of Expertise and Preference" overrideStyle={styles.labelOverride}/>
+            <ComponentWithNavbar  type='stack'  title='(2/4) Education and Experience'>
+               <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer} >
+                    <Header title="Education and Experience" overrideStyle={styles.labelOverride}/>
+                    <Text style={formStyles.label}>So as a educator what is the recent institution your graduated from?</Text>
 
-                    <Text style={formStyles.label}>So as a educator what are programming languages of your expertise?</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'educationInstitution')} type="Education" 
+                    overrideInputStyle={styles.input} placeholder="Education Institution" value={form['educationInstitution']}/>
+
+                    <Text style={formStyles.label}>What year did you graduate?</Text>
+
+                    <Input onChange={(text) => this.handleChange(text, 'educationYearOfGraduation')} type="Education" 
+                    overrideInputStyle={styles.input} placeholder="Education Year Of Graduation" value={form['educationYearOfGraduation']}/>
+
+                    <Text style={formStyles.label}>What certificate/diploma/degree did you recieve?</Text>
+
+                    <Input onChange={(text) => this.handleChange(text, 'educationCertificate')} type="Education" 
+                    overrideInputStyle={styles.input} placeholder="Education Certificate" value={form['educationCertificate']}/>
+
+                    <Text style={formStyles.label}>So as a educator how many years of programming experience do you have?</Text>
                     
-                    <Input onChange={() => console.log("PL of expertise Change Input")} type="PL of expetise" 
-                    overrideInputStyle={styles.input} placeholder="pl of expertise"/>
+                    <Input onChange={(text) => this.handleChange(text, 'experience')} type="Experience" 
+                    overrideInputStyle={styles.input} placeholder="Programming Experience" value={form['experience']}/>
                     
-                    <Text style={formStyles.label}>So as a educator what are your favorite programming languages?</Text>
+                    {/* <Text style={formStyles.label}>Resume?</Text>                
                     
-                    <AutoComplete data={this.state.filteredList} placeholder="Favorite Programming Languages"
-                     valueObj={{}} value={this.state.selectedItem ? this.state.selectedItem.name : this.state.value} onChangeText={(text) => this.setState({value: text})} renderItem={this._renderItem} />
-                    
-                    <SelectionPane title="Programming Languages of Expertise"  overrideTitleStyles={formStyles.label}>
-                        <Text style={styles.label}>No Languages picked.</Text>
-                        {/* {this.state.plList.map(pl => <Card type="register-programming-languages" />)} */}
-                    </SelectionPane>
-                    <SelectionPane title="Favorite Programming Languages" overrideTitleStyles={formStyles.label}>
-                        <Text style={styles.label}>No Languages picked.</Text>
-                    </SelectionPane>
-                    <Button />
-            </ScrollView>
+                    <Input onChange={() => console.log("Resume upload Change Input")} type="Resume upload" 
+                    overrideInputStyle={styles.input} placeholder="Resume Upload"/> */}
+
+                    <Button title="Next" type='Next' onPress={() => this.props.navigation.navigate('Educator_Register_Three')}/>
+                </KeyboardAwareScrollView>
+            </ComponentWithNavbar>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    form: state.auth.educatorRegistrationForm,
+});
+
+const mapDispatchToProps = dispatch => {
+    const combinedActions = Object.assign({}, AuthActions);
+    return {
+        actions: bindActionCreators(combinedActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EducatorRegisterTwo);

@@ -1,47 +1,57 @@
 import React, { PureComponent } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import * as AjaxCreators from '../../../constants/ajaxCallCreators';
-import * as Config from '../../../utilities/config';
+import { Text, KeyboardAvoidingView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as AuthActions from '../../../redux/reducers/Auth/actions';
 import Header from '../../../inputs/Header';
 import Input from '../../../inputs/Input';
 import Button from '../../../inputs/Button';
-import Card from '../../../inputs/Card';
-import AutoComplete from '../../../inputs/AutoComplete';
+import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import styles from '../styles';
 import formStyles from '../../../styles/form';
-import SelectionPane from '../../../inputs/SelectionPane';
+import navStyles from '../../../styles/navigatorStyles/stackNavigatorStyles';
 
-export default class EducatorRegister extends PureComponent {
+class EducatorRegister extends PureComponent {
     
     static navigationOptions = {
         drawerLabel: 'Educator'
     }
 
+    handleChange = (text, type) => {
+        const form = Object.assign({}, this.props.form);
+        form[type] = text;
+        this.props.actions.changeEducatorRegistration(form);
+    }
 
     render() {
-        console.log('this.props.navigation-------------', this.props.navigation);
+        const { form } = this.props;
         return (
-            <View style={styles.scrollContainer} >
-                <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-                    <Header title="Education and Experience" overrideStyle={styles.labelOverride}/>
-                    <Text style={formStyles.label}>So as a educator what education  you have?</Text>
-
-                    <Input onChange={() => console.log("Education Change Input")} type="Education" 
-                    overrideInputStyle={styles.input} placeholder="Education"/>
-                    
-                    <Text style={formStyles.label}>So as a educator how many years of programming experience do you have?</Text>
-                    
-                    <Input onChange={() => console.log("Experience Change Input")} type="Experience" 
-                    overrideInputStyle={styles.input} placeholder="Experience"/>
-                    
-                    <Text style={formStyles.label}>Resume?</Text>                
-                    
-                    <Input onChange={() => console.log("Resume upload Change Input")} type="Resume upload" 
-                    overrideInputStyle={styles.input} placeholder="Resume Upload"/>
-
-                    <Button  title="Next" onPress={() => this.props.navigation.navigate('Register_Two')}/>
-                </ScrollView>
-            </View>
+            <ComponentWithNavbar type='register'  title='(1/3) Basic Info'>
+                <KeyboardAvoidingView>
+                    <Header title="Info as a Educator" />
+                    <Text style={formStyles.label}>Display Name</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'displayName') } placeholder="Display Name" value={form["displayName"]}/>
+                    <Text style={formStyles.label}>Email</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'email')} placeholder="Email" value={form["email"]}/>
+                    <Text style={formStyles.label}>Intro</Text>
+                    <Input onChange={(text) => this.handleChange(text, 'intro')} placeholder="Your Introduction" value={form["intro"]}/>
+                    <Button title='Next - Education' onPress={() => this.props.navigation.navigate('Educator_Register_Two')} />
+                </KeyboardAvoidingView>
+            </ComponentWithNavbar>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    form: state.auth.educatorRegistrationForm
+});
+
+const mapDispatchToProps = dispatch => {
+    const combinedActions = Object.assign({}, AuthActions);
+    return {
+        actions: bindActionCreators(combinedActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EducatorRegister);

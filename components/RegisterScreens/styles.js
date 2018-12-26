@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     labelOverride: {
-        marginBottom: height * 0.05
+        lineHeight: height * 0.05,
+        marginBottom: height * 0.01
     },
 });
 

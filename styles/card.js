@@ -54,7 +54,19 @@ const styles = StyleSheet.create({
         height: 60,
         width: 60,
         borderRadius: 50,
+        alignItems: 'center',
         textAlign: 'center'
+    },
+    listCard: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: 200
+    },
+    listCardText: {
+        width: 125,
+        textAlign: 'center',
+        fontSize: 20
     }
 });
 

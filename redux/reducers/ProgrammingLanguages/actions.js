@@ -5,6 +5,7 @@ import * as AjaxActions from '../Ajax/actions';
 
 const baseProgrammingLanguagesUrl = config.server + '/programming_languages';
 export const getProgrammingLanguages = () => {
+    console.log("Hit Server");
     return dispatch => {
         dispatch(AjaxActions.beginAjaxCall());
         return AjaxCallCreators.get(baseProgrammingLanguagesUrl, 'get-programming-languages')

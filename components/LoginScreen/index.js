@@ -21,7 +21,7 @@ class LoginScreen extends PureComponent {
                 <View style={baseStyles.boxContainer}>
                     <Header title="Login" />
                     <Text style={formStyles.label}>
-                        UsernameA
+                        Username
                     </Text>
                     <Input onChange={() => console.log("changed")} type="username" placeholder="Username...."/>
                     <Text style={formStyles.label}>
@@ -51,4 +51,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-// export default LoginScreen;

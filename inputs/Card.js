@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as utilities from '../utilities/functions';
 import styles from '../styles/card';
 
-const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}}) => {
+const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}, overrideImageStyles={}, onPress=() => console.log('Default Click')}) => {
     const image = type === "tutorial" ? utilities.getTutorialIcon(objToMap.subject) : null;
     console.log("Card Image-------------", image);
     //Delete your criticisms property since it will not displayed only rating.
@@ -15,9 +15,16 @@ const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}}) => {
     const link = objToMap['link'];
     delete objToMap['link']; 
     return (
-        <TouchableOpacity style={[styles.container, overrideStyles]} onPress>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: image}}/>
+        <TouchableOpacity style={[styles.container, overrideStyles]} 
+        onPress={() => {
+                if(type === 'register-fav-pl')
+                    return onPress('favoriteProgrammingLanguages', objToMap);
+                else if(type === 'register-pl-of-expertise')
+                    return onPress('programmingLanguageOfExpertise', objToMap);
+            }
+        }>
+            <View style={[styles.imageContainer, overrideImageStyles]}>
+                <Image style={styles.image} source={{uri: image ? image : objToMap.image}}/>
             </View>
             {/* Do not the display the link based if the key is link */}
             <View style={[styles.subContainer, styles.keyContainer]}>
@@ -29,9 +36,14 @@ const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}}) => {
                     </Text>
                 ))
                 : 
-                <Text>
-                    {_.capitalize(objToMap[key])}
-                </Text>
+                type.includes('register') ?
+                <TouchableOpacity style={styles.listCard}>
+                    <Text style={styles.listCardText}>
+                        {_.capitalize(objToMap.name)}
+                    </Text>
+                    {icon}
+                </TouchableOpacity>
+                : null 
             }
             </View>
             {/* Do not display the value if it has tutorials since that a characteristics all links have. */}
@@ -51,9 +63,6 @@ const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}}) => {
                 ))
                 : null
             }
-            {
-                type === 'register-pl' && icon
-            }
             </View>
         </TouchableOpacity>
     );
@@ -63,7 +72,9 @@ Card.propTypes = {
     type: PropTypes.string.isRequired,
     objToMap: PropTypes.object,
     icon: PropTypes.element.isRequired,
-    overrideStyles: PropTypes.object
+    overrideStyles: PropTypes.object,
+    overrideImageStyles: PropTypes.object,
+    onPress: PropTypes.func,
 };
 
 export default Card;

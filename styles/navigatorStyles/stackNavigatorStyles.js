@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
         fontSize: 26,
         textAlign: 'center',
         flexGrow: 0.8
+    },
+    navIcon: {
+        textAlign: 'center',
+        paddingTop: 5
     }
 })
 
