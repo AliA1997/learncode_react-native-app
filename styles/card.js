@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     text: {
-        // color: 'black',
+        color: configStyles.textColor,
         fontSize: configStyles.textSize,
         lineHeight: configStyles.lineHeight,
         fontWeight: '300',
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     image: {
         height: 60,
         width: 60,
+        flex: 1,
+        backgroundColor: 'red',
         borderRadius: 50,
         alignItems: 'center',
         textAlign: 'center'

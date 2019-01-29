@@ -26,7 +26,7 @@ const Donut = ({data, valueBasedOn, staticColors=false}) => {
     //Define the colors the for your donut graph.
     const colors = d3.scaleLinear()
                     .domain([0, data.length])
-                    .range([0, 255]) 
+                    .range([200, 255]) 
     
     console.log(sectionAngles);
     return (

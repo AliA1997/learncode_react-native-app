@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as TutorialActions from '../../../redux/reducers/Tutorial/actions';
-import { ScrollView, View, Dimensions, Text } from 'react-native';
-import * as Config from '../../../utilities/config';
+import { ScrollView, View, Dimensions, Text, ActivityIndicator } from 'react-native';
 import baseStyles from '../../../styles/base';
-import * as AjaxCreators from '../../../constants/ajaxCallCreators';
+//Import your Query component
+import {  Query } from 'react-apollo';
+import * as tutorialQueries from '../../../schemas/tutorial/getQueries';
 import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 //import Animated from reanimated similar to react-native Animated component except it is a default export.
 import Animated from 'react-native-reanimated';
@@ -31,26 +32,26 @@ const { event, Value, cond, eq } = Animated;
 const data = [
     {
         title: "Completed Javascript Fundamentals",
-        progress: 50
+        progress: 90
     },
     {
-        title: "Beginners Javascript",
-        progress: 50
+        title: "Not Completed",
+        progress: 10
     }
 ]
 
 const data2 = [
     {
         title: "Beginners Javascript",
-        progress: 50
+        progress: 70
     },
     {
         title: "Completed Javascript Fundamentals",
-        progress: 50
+        progress: 30
     }
 ]
 
-const apiUrl = Config.server + '/tutorials';
+
 
 class StudentDashboard extends PureComponent {
     state = {
@@ -76,40 +77,58 @@ class StudentDashboard extends PureComponent {
         drawerLabel: 'Dashboard'
     }
 
-    componentDidMount() {
-        this.props.actions.getAllTutorials();
-    }
+    // componentDidMount() {
+    //     this.props.actions.getAllTutorials();
+    // }
     render() {
         const { tutorials } = this.props;
         console.log('tutorials----------', tutorials);
         return (
-            <ComponentWithNavbar>
-                <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                        <TapGestureHandler onHandlerStateChange={this.onStateChange}>
-                            <Animated.View style={[{backgroundColor: 'blue', height: 100, width: 100}, { opacity: this.opacity}]} />
-                        </TapGestureHandler>
+        <ComponentWithNavbar>
+            <ScrollView contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <TapGestureHandler onHandlerStateChange={this.onStateChange}>
+                        <Animated.View style={[{backgroundColor: 'blue', height: 100, width: 100}, { opacity: this.opacity}]} />
+                    </TapGestureHandler>
+                </View>
+                <View style={[styles.container, baseStyles.boxContainer, {marginTop: height * 0.2}]}>
+                <Header title="Welcome Ali!" overrideStyle={styles.overrideHeaderStyles}/>
+                    <View style={{width: width * 0.4}}>
+                        <Text>{data2[0].progress}%</Text>
+                        <Donut data={data} valueBasedOn={'progress'} staticColors={true}/>
                     </View>
-                    <View style={[styles.container, baseStyles.boxContainer, {marginTop: height * 0.2}]}>
-                    <Header title="Welcome Ali!" overrideStyle={styles.overrideHeaderStyles}/>
-                        <View style={{width: width * 0.4}}>
-                            <Text>{data2[0].progress}%</Text>
-                            <Donut data={data} valueBasedOn={'progress'} staticColors={true}/>
-                        </View>
-                        <Text style={styles.containerLabel}>{data[0].title}</Text>
-                        <View style={{width: width * 0.4}}>
-                            <Text>{data2[0].progress}%</Text>
-                            <Donut data={data2} valueBasedOn={'progress'} staticColors={true}/>
-                        </View>
-                        <Text style={styles.containerLabel}>{data2[0].title}</Text>
+                    <Text style={styles.containerLabel}>{data[0].title}</Text>
+                    <View style={{width: width * 0.4}}>
+                        <Text>{data2[0].progress}%</Text>
+                        <Donut data={data2} valueBasedOn={'progress'} staticColors={true}/>
                     </View>
-                    <ScrollView>
-                        {
-                            this.state.list.map(item => <Card key={item.id} type="tutorial" objToMap={item} icon={<Text />}/>)
-                        }
-                    </ScrollView>
-                </ScrollView>
-            </ComponentWithNavbar>
+                    <Text style={styles.containerLabel}>{data2[0].title}</Text>
+                </View>
+                <Query query={tutorialQueries.getAllTutorialCards}>
+                    {(response, error) => {
+                        console.log('obj------------', response);
+                            if(error) {
+                                console.log('error-------', JSON.stringify(error));
+                                return <Text>Error</Text>;
+                            }
+                            else if (response.loading) {
+                                return <ActivityIndicator style={{flex: 1, height: 100, width: 100, marginLeft: 'auto', marginRight: 'auto',}}/>
+                            } else {
+                                return (
+                                            <ScrollView>
+                                            {
+                                                response.data.tutorials.map(item => {
+                                                    delete item['__typename'];
+                                                    return <Card key={item.id} type="tutorial" objToMap={item} icon={<Text />}/>;
+                                                })
+                                            }
+                                            </ScrollView>
+                                            );
+                                        }
+                                    }}
+                </Query>
+            </ScrollView>
+        </ComponentWithNavbar>
         );
     }
 }

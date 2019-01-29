@@ -1,13 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
+import SvgImage from 'react-native-remote-svg';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as utilities from '../utilities/functions';
 import styles from '../styles/card';
 
 const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}, overrideImageStyles={}, onPress=() => console.log('Default Click')}) => {
-    const image = type === "tutorial" ? utilities.getTutorialIcon(objToMap.subject) : null;
-    console.log("Card Image-------------", image);
     //Delete your criticisms property since it will not displayed only rating.
     const hasCriticism = objToMap['criticisms'] && objToMap['criticisms'].length > 0;
     delete objToMap['criticisms'];
@@ -23,18 +22,24 @@ const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}, overrideImage
                     return onPress('programmingLanguageOfExpertise', objToMap);
             }
         }>
+
             <View style={[styles.imageContainer, overrideImageStyles]}>
-                <Image style={styles.image} source={{uri: image ? image : objToMap.image}}/>
+                <SvgImage style={styles.image} source={{uri: 'https://res.cloudinary.com/aa1997/image/upload/c_thumb,w_200,g_face/v1534738803/javascript.svg'}}/>
             </View>
-            {/* Do not the display the link based if the key is link */}
+
             <View style={[styles.subContainer, styles.keyContainer]}>
             {
                 type === 'tutorial' ? 
-                Object.keys(objToMap).map((key, i) => (
-                    <Text key={i} style={[styles.text, styles.keyText]}>
-                        {_.capitalize(key)}: 
-                    </Text>
-                ))
+                Object.keys(objToMap).map((key, i) => {
+                    if(key === 'image') {
+                        return null;
+                    }
+                    return (
+                        <Text key={i} style={[styles.text, styles.keyText]}>
+                            {_.capitalize(key)}: 
+                        </Text>
+                    );
+                })
                 : 
                 type.includes('register') ?
                 <TouchableOpacity style={styles.listCard}>
@@ -50,17 +55,22 @@ const Card = ({type, objToMap={}, icon=<Text/>, overrideStyles={}, overrideImage
             <View style={[styles.subContainer, styles.valueContainer]}>
             {
                 type === 'tutorial' ? 
-                Object.values(objToMap).map((value, i) => (
-                    <Text key={i} style={styles.text}>
-                        {typeof value == 'string' ?
-                             _.capitalize(value).length > 21 ?
-                                _.capitalize(value).slice(0, 18) + '...' 
-                                : _.capitalize(value)
-                            : hasCriticism ? 
+                Object.values(objToMap).map((value, i) => {
+                    if(objToMap.image === value) {
+                        return null;
+                    }
+                    return (
+                        <Text key={i} style={styles.text}>
+                            {typeof value == 'string' ?
+                                    _.capitalize(value).length > 21 ?
+                                    _.capitalize(value).slice(0, 18) + '...' 
+                                    : _.capitalize(value)
+                            :  hasCriticism ?  
                                 value + '/5' 
                                 : 'No Criticsms Yet'}
-                    </Text>
-                ))
+                        </Text>
+                    );
+                })
                 : null
             }
             </View>

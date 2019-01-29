@@ -19,7 +19,6 @@ class LoginScreen extends PureComponent {
         return (
             <ComponentWithNavbar title="Login">
                 <View style={baseStyles.boxContainer}>
-                    <Header title="Login" />
                     <Text style={formStyles.label}>
                         Username
                     </Text>

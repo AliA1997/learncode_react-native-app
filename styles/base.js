@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#E5E5E5',
+        backgroundColor: configStyles.appBackgroundColor,
         width: width
     },
     topContainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor: '#E5E5E5',
+        backgroundColor: configStyles.appBackgroundColor,
         width: width
     },
     boxContainer: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: 'transparent',
-        shadowColor: 'black',
+        shadowColor: 'white',
         shadowOpacity: 0.25,
         padding: 0,
         minHeight: 75,
@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
     }),
     autocompleteList: {
         width: width * 0.6
+    },
+    searchBarIconContainer: {
+        width: width * 0.2,
+        backgroundColor: configStyles.buttonColor
     }
 });
 

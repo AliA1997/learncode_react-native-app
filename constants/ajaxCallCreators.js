@@ -53,7 +53,7 @@ export function get(url, typeOfData, queryParams=null, accessToken, credentials=
             }
             //Catch any errors while fetching data.
         }).catch(error => {
-            console.error("Get Ajax Creator Error-----------", error);
+            // console.error("Get Ajax Creator Error-----------", error);
         });
     })
 }

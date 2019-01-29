@@ -39,8 +39,8 @@ class NavbarWithComponent extends PureComponent {
     render() {
         const { type } = this.props;
         let icon;
-        if(type === 'stack' || type === 'register') icon = <Icon name="arrow-left" size={30} style={navStyles.navIcon}/>;
-        else icon = <Icon name="list-ul" size={25} style={navStyles.navIcon}/>;
+        if(type === 'stack' || type === 'register') icon = <Icon name="arrow-left" size={30} style={navStyles.navIcon} color="#FFFFFF"/>;
+        else icon = <Icon name="list-ul" size={25} style={navStyles.navIcon} color="#FFFFFF"/>;
         return (
             <KeyboardAvoidingView style={[baseStyles.container, this.props.overrideStyles]}>
                 <Navbar toggle={() => this.toggle()} 

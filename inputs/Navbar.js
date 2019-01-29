@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 
 const Navbar = ({title, icon, toggle}) => {
     return (
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', paddingBottom: 10,
-            backgroundColor: 'green', position: 'absolute', top: 0, height: 100, width: '100%', zIndex: 100}}>
+        <View style={navStyles.navbar}>
             <TouchableOpacity style={navStyles.headerStyle}
             onPress={() => toggle()}>
                 {icon}
