@@ -3,7 +3,6 @@ import * as configStyles from '../../styles/config';
 import stackNavigatorStyles from '../../styles/navigatorStyles/stackNavigatorStyles';
 import EducatorRegister from '../../components/RegisterScreens/EducatorRegister';
 import EducatorRegisterTwo from '../../components/RegisterScreens/EducatorRegisterTwo';
-import EducatorRegisterThree from '../../components/RegisterScreens/EducatorRegisterThree';
 
 const educatorRegisterNavigator = createStackNavigator(
 {
@@ -26,17 +25,6 @@ const educatorRegisterNavigator = createStackNavigator(
             // headerTitleStyle: stackNavigatorStyles.headerTextColor,
             // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
             // headerTintColor: '#0E8B66',
-            header: null
-        })
-    },
-    Educator_Register_Three: {
-        screen: EducatorRegisterThree,
-        navigationOptions: () => ({
-            // title: "(3/3) Not defined",
-            // headerStyle: stackNavigatorStyles.headerStyle,
-            // headerTitleStyle: stackNavigatorStyles.headerTextColor,
-            // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
-            // headerTintColor: 'white',
             header: null
         })
     }

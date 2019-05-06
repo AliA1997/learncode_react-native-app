@@ -15,6 +15,14 @@ const reducer = (state = initialState.auth, action) => {
             return Object.assign({}, state, {
                 educatorRegistrationForm: action.form
             });
+        case ActionTypes.PERSIST_LOGIN:
+            return Object.assign({}, state, {
+                currentUser: action.user
+            });
+        case ActionTypes.LOGIN_SUCCESS:
+            return Object.assign({}, state, {
+                educatorRegistrationForm: initialState.auth.educatorRegistrationForm               
+            });
         default: 
             return state;
     }

@@ -3,7 +3,7 @@ import { Text, KeyboardAvoidingView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as AuthActions from '../../../redux/reducers/Auth/actions';
+import * as utils from '../../../utilities/functions';
 import Header from '../../../inputs/Header';
 import Input from '../../../inputs/Input';
 import Button from '../../../inputs/Button';
@@ -19,7 +19,7 @@ class EducatorRegister extends PureComponent {
     }
 
     handleChange = (text, type) => {
-        const form = Object.assign({}, this.props.form);
+        const form = utils.deepCopy(this.props.form);
         form[type] = text;
         this.props.actions.changeEducatorRegistration(form);
     }
@@ -34,9 +34,8 @@ class EducatorRegister extends PureComponent {
                     <Input onChange={(text) => this.handleChange(text, 'displayName') } placeholder="Display Name" value={form["displayName"]}/>
                     <Text style={formStyles.label}>Email</Text>
                     <Input onChange={(text) => this.handleChange(text, 'email')} placeholder="Email" value={form["email"]}/>
-                    <Text style={formStyles.label}>Intro</Text>
-                    <Input onChange={(text) => this.handleChange(text, 'intro')} placeholder="Your Introduction" value={form["intro"]}/>
                     <Button title='Next - Education' onPress={() => this.props.navigation.navigate('Educator_Register_Two')} />
+                    {/*Want to register as a third party. */}
                 </KeyboardAvoidingView>
             </ComponentWithNavbar>
         );
@@ -48,7 +47,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-    const combinedActions = Object.assign({}, AuthActions);
+    const combinedActions = utils.deepCopy(AuthActions);
     return {
         actions: bindActionCreators(combinedActions, dispatch)
     }

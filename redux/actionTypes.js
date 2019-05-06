@@ -1,6 +1,8 @@
 //Ajax action types
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
 export const AJAX_ERROR = 'AJAX_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 //Auth Action Types
 export const CHANGE_LOGIN_FORM = 'CHANGE_LOGIN_FORM';

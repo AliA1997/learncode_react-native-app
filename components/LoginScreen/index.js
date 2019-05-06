@@ -1,19 +1,40 @@
 import React, { PureComponent } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback } from 'react-native';
+import * as mutations from '../../schemas/user/mutations';
+import { Mutation } from 'react-apollo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AuthActions from '../../redux/reducers/Auth/actions';
 import ComponentWithNavbar from '../../utilities/ComponentWithNavbar';
+import * as utils from '../../utilities/functions';
 import formStyles from '../../styles/form';
 import baseStyles from '../../styles/base';
 import Button from '../../inputs/Button';
 import Input from '../../inputs/Input';
 import Header from '../../inputs/Header';
+import gql from 'graphql-tag';
+
 
 class LoginScreen extends PureComponent {
+    
     static navigationOptions = {
         drawerLabel: 'Login'
     }
+    
+    handleChange = (text, type) => {
+        const form = utils.deepCopy(this.props.form);
+
+        form[type] = text;
+
+        return;
+        // this.props.actions.actionrrs.change
+    }
+
+    login = async (loginMutation) => {
+        await loginMutation({variables: {displayName: 'AliA1997', password: 'password-1'}})
+        alert('login successfully!');
+    }
+
     render() {
         console.log("Auth------------", this.props.actions);
         return (
@@ -27,11 +48,27 @@ class LoginScreen extends PureComponent {
                         Password
                     </Text>
                     <Input onChange={() => console.log("changed")} type="Password" placeholder="Password...."/>
-                    <Button title="Login" onPress={() => this.props.actions.login({email: 'devmtnali@gmail.com', password: 'P@ssw0rd1'})} />
+                    <Mutation 
+                        mutation={mutations.loginEducatorMutation}
+                    >
+                        {(loginMutation) => {
+                            if(loginMutation.error) 
+                                console.log('ERror---------', loginMutation);
+
+                            console.log('loginMutation-------------', loginMutation);
+                            if(loginMutation)
+                                return <Button title="Login" onPress={async () => {
+                                    const user = await loginMutation({variables: {displayName: 'AliA1997', password: 'password-1'}})
+                                    console.log("user registered--------------", user);
+                                    alert(`user registered!`);
+                                }} />
+
+                           }}
+                    </Mutation>
                     <Button
-                    title="Register" 
-                    onPress={() => this.props.navigation.navigate("Register")}
-                />
+                        title="Register" 
+                        onPress={() => this.props.navigation.navigate("Register")}
+                    />
                </View>
             </ComponentWithNavbar>
         );
@@ -39,11 +76,12 @@ class LoginScreen extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    user: state.auth.loginForm
+    form: state.auth.loginForm,
+    user: state.auth.currentUser
 });
 
 const mapDispatchToProps = dispatch => {
-    const combinedActions = Object.assign({}, AuthActions);
+    const combinedActions = utils.deepCopy(AuthActions);
     return {
         actions: bindActionCreators(combinedActions, dispatch)
     }

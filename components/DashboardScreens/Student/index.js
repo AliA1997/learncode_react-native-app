@@ -12,10 +12,12 @@ import ComponentWithNavbar from '../../../utilities/ComponentWithNavbar';
 import Animated from 'react-native-reanimated';
 //import TapGestureHandler to handle simple clicks on animated components.
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+
 import Donut from '../../../inputs/Donut';
 import Header from '../../../inputs/Header';
 import Card from '../../../inputs/Card';
 import styles from '../styles';
+
 
 
 const { height, width } = Dimensions.get('window');
@@ -57,7 +59,8 @@ class StudentDashboard extends PureComponent {
     state = {
         list: [],
         //Assign the current animated value -1 since it has not been triggered 
-        animatedValue: new Value(-1)
+        animatedValue: new Value(-1),
+        currentNumber: 0
     }
     
     //Create a animated state handler.
@@ -82,6 +85,7 @@ class StudentDashboard extends PureComponent {
     // }
     render() {
         const { tutorials } = this.props;
+        const currentNumber = 0;
         console.log('tutorials----------', tutorials);
         return (
         <ComponentWithNavbar>
@@ -94,7 +98,8 @@ class StudentDashboard extends PureComponent {
                 <View style={[styles.container, baseStyles.boxContainer, {marginTop: height * 0.2}]}>
                 <Header title="Welcome Ali!" overrideStyle={styles.overrideHeaderStyles}/>
                     <View style={{width: width * 0.4}}>
-                        <Text>{data2[0].progress}%</Text>
+                        <Text style={{color: 'white'}}>
+                        </Text>
                         <Donut data={data} valueBasedOn={'progress'} staticColors={true}/>
                     </View>
                     <Text style={styles.containerLabel}>{data[0].title}</Text>

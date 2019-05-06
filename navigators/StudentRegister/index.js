@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation';
 //Import your Component for each screen of your Navigation.
 import StudentRegister from '../../components/RegisterScreens/StudentRegister';
 import StudentRegisterTwo from '../../components/RegisterScreens/StudentRegisterTwo';
-import StudentRegisterThree from '../../components/RegisterScreens/StudentRegisterThree';
 
 import stackNavigatorStyles from '../../styles/navigatorStyles/stackNavigatorStyles';
 
@@ -30,17 +29,6 @@ const studentRegisterNavigator = createStackNavigator(
                 // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
                 // headerTintColor: 'white'
                 header: null,
-            })
-        },
-        Student_Register_Three: {
-            screen: StudentRegisterThree,
-            navigationOptions: () => ({
-                // title: '(3/3) Education and Experience',
-                // headerStyle: stackNavigatorStyles.headerStyle,
-                // headerTitleStyle: stackNavigatorStyles.headerTextColor, 
-                // headerBackTitleStyle: stackNavigatorStyles.headerTextColor,
-                // headerTintColor: 'white'
-                header: null
             })
         }
     },

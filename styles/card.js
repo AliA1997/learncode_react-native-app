@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         borderRadius: 50,
         alignItems: 'center',
-        textAlign: 'center'
+        // textAlign: 'center'
     },
     listCard: {
         flexDirection: 'row',

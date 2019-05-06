@@ -5,7 +5,8 @@ module.exports = {
     auth: {
         loginForm: {},
         studentRegistrationForm: {},
-        educatorRegistrationForm: {}
+        educatorRegistrationForm: {},
+        currentUser: {}
     },
     criticism: {
         createTutorialCriticismForm: {},
